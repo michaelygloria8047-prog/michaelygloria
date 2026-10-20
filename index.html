@@ -1,0 +1,352 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Personal Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}</script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Personal Website</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">ABOUT</a>
+                <div class="dropdown-content">
+                    <a href="skills.html">Skills I'm Developing</a>
+                    <a href="goals.html">My Goals as a Student</a>
+                    <a href="funfacts.html">Fun Facts About Me</a>
+                </div>
+            </li>
+
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><button type="button" class="theme-toggle" id="themeToggle"></button></li>
+            <a href="javascript:void(0);" class="logout-button" onclick="confirmLogout()">LOG OUT</a>
+        </ul>
+    </nav>
+    <section id="section2"></section>
+    
+    <div class="slider">
+        <div class="slides">
+            <div class="slide">
+                <img src="Images/d.jpeg" alt="Image 1" onerror="this.style.display='none'">
+                <div class="text-overlay"><h1> Welcome to my Website! </h1></div>
+            </div>
+            <div class="slide">
+                <img src="Images/Im.jpeg" alt="Image 2" onerror="this.style.display='none'">
+                <div class="text-overlay"><h1> Explore! </h1></div>
+            </div>
+            <div class="slide">
+                <img src="Images/m.jpeg" alt="Image 3" onerror="this.style.display='none'">
+                <div class="text-overlay"><h1> Enjoy browsing around </h1></div>
+            </div>
+        </div>
+    </div>
+    <section id="drop">
+        <h2>Fun Facts About Me</h2>
+        <p>Welcome to my Fun Facts About Me! Here, you'll get see about my interests, hobbies,  and others else so explore it and enjoy! </p>
+
+        <div class="funfact-container">
+            <div class="funfact-card">
+                <div class="funfact-inner">
+                    <div class="funfact-front">
+                        <p>I'm a programmer!</p>
+                    </div>
+                    <div class="funfact-back">
+                        <p>Which means I spend half my time writing code and the other half figuring out whay it doesn't work!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="funfact-card">
+                <div class="funfact-inner">
+                    <div class="funfact-front">
+                        <p>My favorite kind of exercise</p>
+                    </div>
+                    <div class="funfact-back">
+                        <p>Running a code</p>
+                    </div>
+                </div>
+            </div>
+            <div class="funfact-card">
+                <div class="funfact-inner">
+                    <div class="funfact-front">
+                        <p>I use dark mode! </p>
+                    </div>
+                    <div class="funfact-back">
+                        <p>Because light attracts bugs</p>
+                    </div>
+                </div>
+            </div>
+            <div class="funfact-card">
+                <div class="funfact-inner">
+                    <div class="funfact-front">
+                        <p>I speak fluent languages </p>
+                    </div>
+                    <div class="funfact-back">
+                        <p>Ctrl+C and Ctrl+V</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       <!-- See More Button -->
+       <div class="see-more-container">
+        <a href="funfacts.html" class="see-more-button">See More Funfacts</a>
+    </div>
+    </section>
+    
+    <div class="container">
+        <div class="image-section">
+            <img src="Michael.jpg" alt="Mic Image" onerror="this.onerror=null;this.src='Images/Mic.jpeg'">
+        </div>
+        <div class="quote-section">
+            <h1>Hi, I'm Michael</h1>
+            <p>I'm an Information Technology student who's alwayss curious about how technology works and how I can use it to solve real problems . Turning ideas into working solutions through code and continuos learning.</p>
+            <blockquote>
+                "If you want to change your life, You have to change your mind."
+            </blockquote>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 Michael James Ygloria. All rights reserved.</p>
+    </footer>
+    <div class="footer-divider"></div> <!-- Orange line -->
+
+    <!-- Lightbox Container -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close" onclick="event.stopPropagation(); closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightboxImage" src="">
+    </div>
+
+    <script>
+        const slides = document.querySelector('.slides');
+        const slider = document.querySelector('.slider');
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let index = 0;
+        let timer;
+
+        function goToSlide(n) {
+            const total = slides.children.length;
+            index = (n + total) % total;
+            slides.style.transform = 'translateX(' + (-index * 100) + '%)';
+            document.querySelectorAll('.slide-dots button').forEach(function (dot, i) {
+                dot.classList.toggle('active', i === index);
+                dot.setAttribute('aria-current', i === index ? 'true' : 'false');
+            });
+        }
+
+        function showNextSlide() {
+            goToSlide(index + 1);
+        }
+
+        function stopSlider() { clearInterval(timer); }
+        function startSlider() {
+            stopSlider();
+            if (!reduceMotion.matches) { timer = setInterval(showNextSlide, 4000); } // Change slide every 4 seconds
+        }
+
+        // Arrow buttons and dots are built here, so the HTML structure stays the same
+        (function () {
+            const prev = document.createElement('button');
+            prev.type = 'button'; prev.className = 'slide-arrow left';
+            prev.setAttribute('aria-label', 'Previous slide'); prev.innerHTML = '&#8249;';
+            const next = document.createElement('button');
+            next.type = 'button'; next.className = 'slide-arrow right';
+            next.setAttribute('aria-label', 'Next slide'); next.innerHTML = '&#8250;';
+            const dots = document.createElement('div');
+            dots.className = 'slide-dots';
+            for (let i = 0; i < slides.children.length; i++) {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                dot.addEventListener('click', function () { goToSlide(i); startSlider(); });
+                dots.appendChild(dot);
+            }
+            prev.addEventListener('click', function () { goToSlide(index - 1); startSlider(); });
+            next.addEventListener('click', function () { goToSlide(index + 1); startSlider(); });
+            slider.appendChild(prev); slider.appendChild(next); slider.appendChild(dots);
+
+            slider.addEventListener('mouseenter', stopSlider);
+            slider.addEventListener('mouseleave', startSlider);
+            slider.addEventListener('pointermove', function (e) {
+                const r = slider.getBoundingClientRect();
+                slider.style.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+                slider.style.setProperty('--py', ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+            });
+            slider.addEventListener('pointerleave', function () {
+                slider.style.setProperty('--px', 0); slider.style.setProperty('--py', 0);
+            });
+        })();
+
+        goToSlide(0);
+        startSlider();
+
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            lightboxImage.src = imageSrc;
+            lightbox.style.display = 'block';
+
+            // Hide header and nav
+            document.querySelector('header').style.display = 'none'; // Hides the header
+            document.querySelector('nav').style.display = 'none'; // Hides the nav
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.style.display = 'none';
+
+            // Show header and nav
+            document.querySelector('header').style.display = 'block'; // Shows the header
+            document.querySelector('nav').style.display = 'flex'; // Shows the nav
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const logoutButton = document.querySelector('.logout-button .dropbtn');
+            const logoutDropdown = document.querySelector('.logout-dropdown');
+
+            // Toggle dropdown visibility on button click
+            if (logoutButton) {
+                logoutButton.addEventListener('click', function () {
+                    logoutDropdown.style.display =  
+                        logoutDropdown.style.display === 'block' ? 'none' : 'block';
+                });
+            }
+
+            // Close dropdown if clicking outside of it
+            window.addEventListener('click', function (event) {
+                if (!event.target.matches('.dropbtn')) {
+                    if (logoutDropdown && logoutDropdown.style.display === 'block') {
+                        logoutDropdown.style.display = 'none';
+                    }
+                }
+            });
+        });
+    </script>
+
+<script>
+// Logout function with confirmation
+function confirmLogout() {
+        // Pop-up message (pet.js). If pet.js is missing, the browser's confirm box is used below.
+        if (window.showLogoutPopup) { showLogoutPopup(); return; }
+    // Show a confirmation message to the user
+    const confirmLogout = confirm("Are you sure you want to log out?");
+
+    // If the user confirms, proceed with logging out
+    if (confirmLogout) {
+        // Mark the user as logged out in localStorage (if used)
+        localStorage.removeItem('isLoggedIn'); // Or any other keys related to login credentials
+
+        // Redirect to the login page
+        window.location.href = 'login.html';
+    } else {
+        // If the user cancels, do nothing
+        return;
+    }
+}
+</script>
+<script>
+// Dark / light mode, dropdown menu, active link and fun fact cards
+(function () {
+    var root = document.documentElement;
+
+    // ----- Dark / light mode (remembered in localStorage) -----
+    var themeBtn = document.getElementById('themeToggle');
+    function paintTheme() {
+        var light = root.dataset.theme === 'light';
+        themeBtn.textContent = light ? '\u263E\uFE0E' : '\u2600\uFE0E';
+        themeBtn.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+        themeBtn.title = light ? 'Dark mode' : 'Light mode';
+    }
+    themeBtn.addEventListener('click', function () {
+        var next = root.dataset.theme === 'light' ? 'dark' : 'light';
+        root.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        paintTheme();
+    });
+    paintTheme();
+
+    // ----- Highlight the current page in the menu -----
+    var page = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('nav a[href]').forEach(function (a) {
+        if (a.getAttribute('href') === page) { a.classList.add('active'); }
+    });
+    if (['skills.html', 'goals.html', 'funfacts.html'].indexOf(page) !== -1) {
+        document.querySelector('.dropbtn').classList.add('active');
+    }
+
+    // ----- ABOUT dropdown: opens on hover, click/tap or keyboard -----
+    var dd = document.querySelector('.dropdown');
+    var ddBtn = dd.querySelector('.dropbtn');
+    ddBtn.setAttribute('aria-haspopup', 'true');
+    ddBtn.setAttribute('aria-expanded', 'false');
+    ddBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var open = dd.classList.toggle('open');
+        ddBtn.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', function (e) {
+        if (!dd.contains(e.target)) { dd.classList.remove('open'); ddBtn.setAttribute('aria-expanded', 'false'); }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { dd.classList.remove('open'); ddBtn.setAttribute('aria-expanded', 'false'); }
+    });
+
+    // ----- Fun fact cards: tap / Enter pins the card open, mouse tilts it -----
+    document.querySelectorAll('.funfact-card').forEach(function (card) {
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-pressed', 'false');
+        function toggle() {
+            var open = card.classList.toggle('open');
+            card.setAttribute('aria-pressed', open);
+        }
+        card.addEventListener('click', toggle);
+        card.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+        card.addEventListener('pointermove', function (e) {
+            if (e.pointerType !== 'mouse') { return; }
+            var r = card.getBoundingClientRect();
+            card.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 14) + 'deg');
+            card.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - 0.5) * 12) + 'deg');
+        });
+        card.addEventListener('pointerleave', function () {
+            card.style.setProperty('--rx', '0deg');
+            card.style.setProperty('--ry', '0deg');
+        });
+    });
+})();
+</script>
+<script src="pet.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

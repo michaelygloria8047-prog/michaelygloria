@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Goals as a Student</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}</script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Personal Website</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">ABOUT</a>
+                <div class="dropdown-content">
+                    <a href="skills.html">Skills I'm Developing</a>
+                    <a href="goals.html">My Goals as a Student</a>
+                    <a href="funfacts.html">Fun Facts About Me</a>
+                </div>
+            </li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><button type="button" class="theme-toggle" id="themeToggle"></button></li>
+            <a href="javascript:void(0);" class="logout-button" onclick="confirmLogout()">LOG OUT</a>
+        </ul>
+    </nav>
+    <section id="section2"></section>
+    <section id="drop">
+        <h2>My Goals as a Student</h2>
+            <p style="text-align: center;">Here are the aspirations I’m passionately pursuing!</p>
+            
+                <div class="goal-grid">
+                    <div class="goal-card" onclick="toggleGoalDetails(1)">
+                        <div class="goal-header"><strong>Short-Term Goals</strong></div>
+                        <p><strong>Pick up one practical skill. </strong></p>
+                        <div class="goal-details" id="goal1-details">
+                            <p>By focusing on these short-term goals,  
+                              Skills in PowerShell/Bash scripting and basic Python .</p>
+                        </div>
+                    </div>
+         
+                    <div class="goal-card" onclick="toggleGoalDetails(1)">
+                        <div class="goal-header"><strong>Long-Term Goals</strong></div>
+                        <p>Move into management or leadership.</p>
+                        <div class="goal-details" id="goal2-details">
+                            <p>IT manager, team lead, or director</p>
+                        </div>
+                    </div>
+         
+                    <div class="goal-card" onclick="toggleGoalDetails(2)">
+                        <div class="goal-header"><strong>Personal Development</strong></div>
+                        <p>Investing in Myself: My Personal Development Journey</p>
+                        <div class="goal-details" id="goal3-details">
+                            <p>Lerning everyday in life like in school, house, or everywhere that helps me grow to be a successful person someday.</p>
+                        </div>
+                    </div>
+         
+                    <div class="goal-card" onclick="toggleGoalDetails(2)">
+                        <div class="goal-header"><strong>Career Goals</strong></div>
+                        <p>As the day go I keep improving myself because. </p>
+                        <div class="goal-details" id="goal4-details">
+                            <p>My goal is to be a succesful person have a job that pays good money so that my needs and wants I can afford it.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+     
+    <footer>
+        <p>&copy; 2024 Michael James A. Ygloria. All rights reserved.</p>
+    </footer>
+    <div class="footer-divider"></div> <!-- Orange line -->
+
+    <script>
+        // Function to toggle details for both cards in a row
+        function toggleGoalDetails(group) {
+            const details1 = document.getElementById('goal' + (group * 2 - 1) + '-details');
+            const details2 = document.getElementById('goal' + (group * 2) + '-details');
+
+            // Toggle visibility for the paired goals
+            details1.classList.toggle('active');
+            details2.classList.toggle('active');
+        }
+    </script>
+
+<script>
+    // Logout function with confirmation
+    function confirmLogout() {
+        // Pop-up message (pet.js). If pet.js is missing, the browser's confirm box is used below.
+        if (window.showLogoutPopup) { showLogoutPopup(); return; }
+        // Show a confirmation message to the user
+        const confirmLogout = confirm("Are you sure you want to log out?");
+     
+        // If the user confirms, proceed with logging out
+        if (confirmLogout) {
+            // Mark the user as logged out in localStorage (if used)
+            localStorage.removeItem('isLoggedIn'); // Or any other keys related to login credentials
+     
+            // Redirect to the login page
+            window.location.href = 'login.html';
+        } else {
+            // If the user cancels, do nothing
+            return;
+        }
+    }
+</script>
+
+<script>
+// Dark / light mode, dropdown menu, active link and fun fact cards
+(function () {
+    var root = document.documentElement;
+
+    // ----- Dark / light mode (remembered in localStorage) -----
+    var themeBtn = document.getElementById('themeToggle');
+    function paintTheme() {
+        var light = root.dataset.theme === 'light';
+        themeBtn.textContent = light ? '\u263E\uFE0E' : '\u2600\uFE0E';
+        themeBtn.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+        themeBtn.title = light ? 'Dark mode' : 'Light mode';
+    }
+    themeBtn.addEventListener('click', function () {
+        var next = root.dataset.theme === 'light' ? 'dark' : 'light';
+        root.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        paintTheme();
+    });
+    paintTheme();
+
+    // ----- Highlight the current page in the menu -----
+    var page = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('nav a[href]').forEach(function (a) {
+        if (a.getAttribute('href') === page) { a.classList.add('active'); }
+    });
+    if (['skills.html', 'goals.html', 'funfacts.html'].indexOf(page) !== -1) {
+        document.querySelector('.dropbtn').classList.add('active');
+    }
+
+    // ----- ABOUT dropdown: opens on hover, click/tap or keyboard -----
+    var dd = document.querySelector('.dropdown');
+    var ddBtn = dd.querySelector('.dropbtn');
+    ddBtn.setAttribute('aria-haspopup', 'true');
+    ddBtn.setAttribute('aria-expanded', 'false');
+    ddBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var open = dd.classList.toggle('open');
+        ddBtn.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', function (e) {
+        if (!dd.contains(e.target)) { dd.classList.remove('open'); ddBtn.setAttribute('aria-expanded', 'false'); }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { dd.classList.remove('open'); ddBtn.setAttribute('aria-expanded', 'false'); }
+    });
+
+    // ----- Fun fact cards: tap / Enter pins the card open, mouse tilts it -----
+    document.querySelectorAll('.funfact-card').forEach(function (card) {
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-pressed', 'false');
+        function toggle() {
+            var open = card.classList.toggle('open');
+            card.setAttribute('aria-pressed', open);
+        }
+        card.addEventListener('click', toggle);
+        card.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+        card.addEventListener('pointermove', function (e) {
+            if (e.pointerType !== 'mouse') { return; }
+            var r = card.getBoundingClientRect();
+            card.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 14) + 'deg');
+            card.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - 0.5) * 12) + 'deg');
+        });
+        card.addEventListener('pointerleave', function () {
+            card.style.setProperty('--rx', '0deg');
+            card.style.setProperty('--ry', '0deg');
+        });
+    });
+})();
+</script>
+<script src="pet.js"></script>
+</body>
+</html>

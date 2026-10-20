@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills I'm Developing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}</script>
+</head>
+<body>
+    <header>
+        <h1>Welcome to My Personal Website</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">ABOUT</a>
+                <div class="dropdown-content">
+                    <a href="skills.html">Skills I'm Developing</a>
+                    <a href="goals.html">My Goals as a Student</a>
+                    <a href="funfacts.html">Fun Facts About Me</a>
+                </div>
+            </li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><button type="button" class="theme-toggle" id="themeToggle"></button></li>
+            <a href="javascript:void(0);" class="logout-button" onclick="confirmLogout()">LOG OUT</a>
+        </ul>
+    </nav>
+
+    <section id="section2"></section>
+
+    <section id="drop">
+        <h2>Skills I'm Developing</h2>
+        <p>As a student, I’m actively developing a diverse set of skills that reflect my passions in technology and beyond.</p>
+    
+        <section id="skills">
+     
+            <div class="tab">
+                <button class="tablinks" onclick="openTab(event, 'IT')">Information Technology</button>
+                <button class="tablinks" onclick="openTab(event, 'GraphicDesign')">Graphic Design</button>
+                <button class="tablinks" onclick="openTab(event, 'PublicSpeaking')">Public Speaking</button>
+                <button class="tablinks" onclick="openTab(event, 'ProblemSolving')">Problem Solving</button>
+            </div>
+     
+            <div id="IT" class="tabcontent">
+                <h3>Information Technology</h3>
+                <ul>
+                    <li> Python,HTML, CSS, and JavaScript</li>
+                    <li>Learning Linux prompting</li>
+                    <li> Java</li>
+                </ul>
+            </div>
+     
+            <div id="GraphicDesign" class="tabcontent" style="display:none;">
+                <h3>Graphic Design</h3>
+                <ul>
+                    <li>UI/UX</li>
+                    <li>System Design</li>
+                    <li> Front-end basic HTML/CSS/JavaScript</li>
+                </ul>
+            </div>
+
+            <div id="PublicSpeaking" class="tabcontent" style="display:none;">
+                <h3>Public Speaking</h3>
+                <ul>
+                    <li>Developing communication skills through reporting in school</li>
+                    <li>Communicating and sharing my opinions to older than me when talking</li>
+                    <li>Explaining ideas clearly and calmly to someone like my classmates, friends, family, and other people that ask quistions to me.</li>
+                </ul>
+            </div>
+
+            <div id="ProblemSolving" class="tabcontent" style="display:none;">
+                <h3>Problem Solving and Critical Thinking</h3>
+                <ul>
+                    <li>Coding different types of problems adn solving it</li>
+                    <li>Selecting the best simple solution but effective challenging everyday with diffent problems in math</li>
+                    <li>Doing my best to solve problems that give me a challenge</li>
+                </ul>
+            </div>
+        </section>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Michael James A. Ygloria. All rights reserved.</p>
+    </footer>
+    <div class="footer-divider"></div> <!-- Orange line -->
+
+<script>
+function openTab(evt, tabName) {
+    // Get all tab content elements
+    const tabcontents = document.getElementsByClassName("tabcontent");
+    // Hide all tab content
+    for (let i = 0; i < tabcontents.length; i++) {
+        tabcontents[i].style.display = "none";
+    }
+
+    // Remove "active" class from all tab links
+    const tablinks = document.getElementsByClassName("tablinks");
+    for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+
+    // Show the current tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.classList.add("active");
+}
+
+// Initially show the first tab content
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('.tablinks').click(); // Simulates a click on the first tab
+});
+</script>
+
+<script>
+    // Logout function with confirmation
+    function confirmLogout() {
+        // Pop-up message (pet.js). If pet.js is missing, the browser's confirm box is used below.
+        if (window.showLogoutPopup) { showLogoutPopup(); return; }
+        // Show a confirmation message to the user
+        const confirmLogout = confirm("Are you sure you want to log out?");
+     
+        // If the user confirms, proceed with logging out
+        if (confirmLogout) {
+            // Mark the user as logged out in localStorage (if used)
+            localStorage.removeItem('isLoggedIn'); // Or any other keys related to login credentials
+     
+            // Redirect to the login page
+            window.location.href = 'login.html';
+        } else {
+            // If the user cancels, do nothing
+            return;
+        }
+    }
+</script>
+
+<script>
+// Dark / light mode, dropdown menu, active link and fun fact cards
+(function () {
+    var root = document.documentElement;
+
+    // ----- Dark / light mode (remembered in localStorage) -----
+    var themeBtn = document.getElementById('themeToggle');
+    function paintTheme() {
+        var light = root.dataset.theme === 'light';
+        themeBtn.textContent = light ? '\u263E\uFE0E' : '\u2600\uFE0E';
+        themeBtn.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+        themeBtn.title = light ? 'Dark mode' : 'Light mode';
+    }
+    themeBtn.addEventListener('click', function () {
+        var next = root.dataset.theme === 'light' ? 'dark' : 'light';
+        root.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        paintTheme();
+    });
+    paintTheme();
+
+    // ----- Highlight the current page in the menu -----
+    var page = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('nav a[href]').forEach(function (a) {
+        if (a.getAttribute('href') === page) { a.classList.add('active'); }
+    });
+    if (['skills.html', 'goals.html', 'funfacts.html'].indexOf(page) !== -1) {
+        document.querySelector('.dropbtn').classList.add('active');
+    }
+
+    // ----- ABOUT dropdown: opens on hover, click/tap or keyboard -----
+    var dd = document.querySelector('.dropdown');
+    var ddBtn = dd.querySelector('.dropbtn');
+    ddBtn.setAttribute('aria-haspopup', 'true');
+    ddBtn.setAttribute('aria-expanded', 'false');
+    ddBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var open = dd.classList.toggle('open');
+        ddBtn.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', function (e) {
+        if (!dd.contains(e.target)) { dd.classList.remove('open'); ddBtn.setAttribute('aria-expanded', 'false'); }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { dd.classList.remove('open'); ddBtn.setAttribute('aria-expanded', 'false'); }
+    });
+
+    // ----- Fun fact cards: tap / Enter pins the card open, mouse tilts it -----
+    document.querySelectorAll('.funfact-card').forEach(function (card) {
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-pressed', 'false');
+        function toggle() {
+            var open = card.classList.toggle('open');
+            card.setAttribute('aria-pressed', open);
+        }
+        card.addEventListener('click', toggle);
+        card.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+        card.addEventListener('pointermove', function (e) {
+            if (e.pointerType !== 'mouse') { return; }
+            var r = card.getBoundingClientRect();
+            card.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 14) + 'deg');
+            card.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - 0.5) * 12) + 'deg');
+        });
+        card.addEventListener('pointerleave', function () {
+            card.style.setProperty('--rx', '0deg');
+            card.style.setProperty('--ry', '0deg');
+        });
+    });
+})();
+</script>
+<script src="pet.js"></script>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Personal Website</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Sora:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>try{var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: light)").matches?"light":"dark";document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="dark"}</script>
+</head>
+<body class="contact-background">
+    <header>
+        <h1>Welcome to My Personal Website</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">ABOUT</a>
+                <div class="dropdown-content">
+                    <a href="skills.html">Skills I'm Developing</a>
+                    <a href="goals.html">My Goals as a Student</a>
+                    <a href="funfacts.html">Fun Facts About Me</a>
+                </div>
+            </li>
+
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="contact.html">CONTACT</a></li>
+            <li><button type="button" class="theme-toggle" id="themeToggle"></button></li>
+            <a href="javascript:void(0);" class="logout-button" onclick="confirmLogout()">LOG OUT</a>
+        </ul>
+    </nav>
+    <section id="section2"></section>
+    <section id="contact">
+        <div class="contact-content">
+            <!-- Contact Form -->
+            <form id="contactForm" class="contact-form">
+                <h2>Let's Get in Touch</h2>
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" placeholder="Your Name">
+                <span class="error" id="nameError"></span>
+     
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Your Email">
+                <span class="error" id="emailError"></span>
+     
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" placeholder="Your Message"></textarea>
+                <span class="error" id="messageError"></span>
+     
+                <button type="submit"><strong>SEND MESSAGE</strong></button>
+            </form>
+     
+            <!-- New Container for Contact Details -->
+            <div class="contact-details">
+                <h3><center>Contact Me</center></h3>
+                <p><strong>Email Address:</strong> <br> michaelygloria8047@gmail.com</p>
+                <hr width="75%" size="1" color="Orange" align="left">
+                <p><strong>Phone Number:</strong> <br>0916 541 4928</p>
+                <hr width="75%" size="1" color="Orange" align="left">
+                <p><strong>Address:</strong> <br> Martinez, Tibiao, Antique, Philippines</p>
+            </div>
+        </div>
+    </section>
+     
+    <footer>
+        <p>&copy; 2024 Your Name. All rights reserved.</p>
+    </footer>
+    <div class="footer-divider"></div> <!-- Orange line -->
+
+    <script>
+  const form = document.querySelector("#contactForm");
+const nameInput = document.querySelector("#name");
+const emailInput = document.querySelector("#email");
+const messageInput = document.querySelector("#message");
+
+form.addEventListener("submit", function(event) {
+    let isValid = true;
+
+    // Clear all previous error messages
+    document.querySelectorAll(".error").forEach(function(errorElement) {
+        errorElement.textContent = "";
+    });
+
+    // Validate Name
+    if (nameInput.value.trim() === "") {
+        document.getElementById('nameError').textContent = "Name is required";
+        isValid = false;
+    }
+
+    // Validate Email
+    if (emailInput.value.trim() === "") {
+        document.getElementById('emailError').textContent = "Email is required";
+        isValid = false;
+    } else if (!validateEmail(emailInput.value)) {
+        document.getElementById('emailError').textContent = "Please enter a valid email";
+        isValid = false;
+    }
+
+    // Validate Message
+    if (messageInput.value.trim() === "") {
+        document.getElementById('messageError').textContent = "Message is required";
+        isValid = false;
+    }
+
+    // Prevent form submission if there are errors
+    if (!isValid) {
+        event.preventDefault();
+    }
+});
+
+// Function to validate email format
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+}
+    </script>
+
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Stop here if the validation script above found a problem
+    if (document.querySelector('.error:not(:empty)')) { return; }
+
+    // Get form values
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    // Simple validation (can be extended)
+    if (name === "" || email === "" || message === "") {
+        alert("Please fill in all fields before submitting.");
+        return; // Exit the function if validation fails
+    }
+
+    // Simulating a successful message submission
+    alert("Your message has been sent successfully!");
+
+    // Clear form fields after submission
+    document.getElementById('contactForm').reset();
+});
+</script>
+
+<script>
+    // Logout function with confirmation
+    function confirmLogout() {
+        // Pop-up message (pet.js). If pet.js is missing, the browser's confirm box is used below.
+        if (window.showLogoutPopup) { showLogoutPopup(); return; }
+        // Show a confirmation message to the user
+        const confirmLogout = confirm("Are you sure you want to log out?");
+     
+        // If the user confirms, proceed with logging out
+        if (confirmLogout) {
+            // Mark the user as logged out in localStorage (if used)
+            localStorage.removeItem('isLoggedIn'); // Or any other keys related to login credentials
+     
+            // Redirect to the login page
+            window.location.href = 'login.html';
+        } else {
+            // If the user cancels, do nothing
+            return;
+        }
+    }
+</script>
+
+<script>
+// Dark / light mode, dropdown menu, active link and fun fact cards
+(function () {
+    var root = document.documentElement;
+
+    // ----- Dark / light mode (remembered in localStorage) -----
+    var themeBtn = document.getElementById('themeToggle');
+    function paintTheme() {
+        var light = root.dataset.theme === 'light';
+        themeBtn.textContent = light ? '\u263E\uFE0E' : '\u2600\uFE0E';
+        themeBtn.setAttribute('aria-label', light ? 'Switch to dark mode' : 'Switch to light mode');
+        themeBtn.title = light ? 'Dark mode' : 'Light mode';
+    }
+    themeBtn.addEventListener('click', function () {
+        var next = root.dataset.theme === 'light' ? 'dark' : 'light';
+        root.dataset.theme = next;
+        try { localStorage.setItem('theme', next); } catch (e) {}
+        paintTheme();
+    });
+    paintTheme();
+
+    // ----- Highlight the current page in the menu -----
+    var page = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('nav a[href]').forEach(function (a) {
+        if (a.getAttribute('href') === page) { a.classList.add('active'); }
+    });
+    if (['skills.html', 'goals.html', 'funfacts.html'].indexOf(page) !== -1) {
+        document.querySelector('.dropbtn').classList.add('active');
+    }
+
+    // ----- ABOUT dropdown: opens on hover, click/tap or keyboard -----
+    var dd = document.querySelector('.dropdown');
+    var ddBtn = dd.querySelector('.dropbtn');
+    ddBtn.setAttribute('aria-haspopup', 'true');
+    ddBtn.setAttribute('aria-expanded', 'false');
+    ddBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        var open = dd.classList.toggle('open');
+        ddBtn.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', function (e) {
+        if (!dd.contains(e.target)) { dd.classList.remove('open'); ddBtn.setAttribute('aria-expanded', 'false'); }
+    });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { dd.classList.remove('open'); ddBtn.setAttribute('aria-expanded', 'false'); }
+    });
+
+    // ----- Fun fact cards: tap / Enter pins the card open, mouse tilts it -----
+    document.querySelectorAll('.funfact-card').forEach(function (card) {
+        card.tabIndex = 0;
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-pressed', 'false');
+        function toggle() {
+            var open = card.classList.toggle('open');
+            card.setAttribute('aria-pressed', open);
+        }
+        card.addEventListener('click', toggle);
+        card.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+        card.addEventListener('pointermove', function (e) {
+            if (e.pointerType !== 'mouse') { return; }
+            var r = card.getBoundingClientRect();
+            card.style.setProperty('--ry', (((e.clientX - r.left) / r.width - 0.5) * 14) + 'deg');
+            card.style.setProperty('--rx', (-((e.clientY - r.top) / r.height - 0.5) * 12) + 'deg');
+        });
+        card.addEventListener('pointerleave', function () {
+            card.style.setProperty('--rx', '0deg');
+            card.style.setProperty('--ry', '0deg');
+        });
+    });
+})();
+</script>
+<script src="pet.js"></script>
+</body>
+</html>
